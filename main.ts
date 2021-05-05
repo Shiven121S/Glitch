@@ -1,10 +1,22 @@
 namespace SpriteKind {
     export const Actor = SpriteKind.create()
 }
+sprites.onCreated(SpriteKind.Enemy, function (sprite) {
+    sprites.setDataBoolean(sprite, "Alive?", true)
+    list = [-55, 55]
+    sprite.setVelocity(list._pickRandom(), 0)
+    console.log("")
+    sprite.setBounceOnWall(true)
+    tiles.placeOnRandomTile(sprite, assets.tile`myTile`)
+    sprite.ay = 300
+    sprites.setDataNumber(sprite, "Gravity", 300)
+    sprites.setDataNumber(sprite, "VX", 55)
+    sprites.setDataNumber(sprite, "VY", 0)
+})
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Game_Started) {
         if (Jumps >= 1) {
-            mySprite.vy = 0 - Math.sqrt(26000)
+            mySprite.vy = -161
             Jumps += -1
         }
     }
@@ -18,6 +30,9 @@ function Set_Colors () {
     color.setColor(6, color.rgb(129, 98, 113))
     color.setColor(7, color.rgb(78, 73, 95))
 }
+sprites.onDestroyed(SpriteKind.Player, function (sprite) {
+    sprites.setDataBoolean(sprite, "Alive?", false)
+})
 blockMenu.onMenuOptionSelected(function (option, index) {
     if (option == "How To Play") {
         game.setDialogFrame(img`
@@ -52,30 +67,49 @@ blockMenu.onMenuOptionSelected(function (option, index) {
             blockMenu.closeMenu()
             tiles.setSmallTilemap(tilemap`level1`)
             mySprite = sprites.create(img`
-                4 4 4 3 3 3 3 3 
-                4 2 2 2 2 2 2 3 
-                4 2 4 2 2 4 2 3 
-                5 2 5 2 2 5 2 3 
-                5 2 5 2 2 5 2 3 
-                5 2 6 2 2 6 2 4 
-                5 2 2 2 2 2 2 4 
-                5 5 5 5 5 4 4 4 
+                6 6 6 6 5 5 5 5 
+                6 2 2 2 2 2 2 5 
+                6 2 5 2 2 5 2 5 
+                6 2 6 2 2 6 2 5 
+                7 2 7 2 2 7 2 6 
+                7 2 7 2 2 7 2 6 
+                7 2 2 2 2 2 2 6 
+                7 7 7 7 6 6 6 6 
                 `, SpriteKind.Actor)
-            tiles.placeOnRandomTile(mySprite, assets.tile`myTile1`)
+            sprites.setDataString(mySprite, "Type", "Player")
+            tiles.placeOnRandomTile(mySprite, assets.tile`myTile0`)
             controller.moveSprite(mySprite, 65, 0)
+            for (let index2 = 0; index2 < 5; index2++) {
+                timer.after(500, function () {
+                    mySprite2 = sprites.create(img`
+                        7 7 6 6 6 6 6 6 
+                        7 7 6 1 1 1 1 6 
+                        f f 7 6 1 1 1 6 
+                        f 1 f 7 6 1 1 6 
+                        f 1 1 f 7 6 1 6 
+                        f 1 1 1 f 7 6 6 
+                        f 1 1 1 1 f 7 7 
+                        f f f f f f 7 7 
+                        `, SpriteKind.Enemy)
+                })
+            }
             mySprite.ay = 500
             textSprite.destroy()
             Jumps = 3
             color.clearFadeEffect()
-            Game_Started = true
             Set_Colors()
+            Game_Started = true
         })
     }
 })
-let mySprite: Sprite = null
+let mySprite2: Sprite = null
 let Jumps = 0
+let list: number[] = []
 let textSprite: TextSprite = null
 let Game_Started = false
+let mySprite : Sprite = null
+let counter = 0
+counter = 0
 Game_Started = false
 Set_Colors()
 blockMenu.showMenu(["Play", "How To Play"], MenuStyle.List, MenuLocation.BottomHalf)
@@ -88,6 +122,42 @@ game.onUpdate(function () {
     if (Game_Started) {
         if (mySprite.isHittingTile(CollisionDirection.Bottom)) {
             Jumps = 3
+        }
+    }
+})
+game.onUpdate(function () {
+    if (Game_Started) {
+        if (controller.B.isPressed()) {
+            mySprite.setImage(img`
+                6 6 6 6 5 5 5 5 
+                6 2 2 2 2 2 2 5 
+                6 2 2 2 2 2 2 5 
+                6 2 2 5 2 2 2 5 
+                7 2 2 2 6 2 2 6 
+                7 2 2 7 2 2 2 6 
+                7 2 2 2 2 2 2 6 
+                7 7 7 7 6 6 6 6 
+                `)
+            for (let value of sprites.allOfKind(SpriteKind.Enemy)) {
+                value.vx = 0
+                value.vx = 0
+            }
+        } else {
+            mySprite.setImage(img`
+                4 4 4 3 3 3 3 3 
+                4 2 2 2 2 2 2 3 
+                4 2 4 2 2 4 2 3 
+                5 2 5 2 2 5 2 3 
+                5 2 5 2 2 5 2 3 
+                5 2 6 2 2 6 2 4 
+                5 2 2 2 2 2 2 4 
+                5 5 5 5 5 4 4 4 
+                `)
+            controller.moveSprite(mySprite, 65, 0)
+            for (let value2 of sprites.allOfKind(SpriteKind.Enemy)) {
+                value2.vx = list._pickRandom()
+                value2.ay = 300
+            }
         }
     }
 })
