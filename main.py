@@ -9,7 +9,7 @@ def on_on_created(sprite):
     sprite.set_velocity(75, 0)
     
     # def on_throttle():
-    #     sprite.set_velocity(sprite.vx * -1, 0)
+        #     sprite.set_velocity(sprite.vx * -1, 0)
     # timer.throttle("action", 50, on_throttle)
     
     def on_background():
@@ -30,7 +30,7 @@ def on_on_created(sprite):
     on_background()
 
     tiles.place_on_random_tile(sprite, assets.tile("""
-        myTile
+    myTile
     """))
     sprite.ay = 300
     sprites.set_data_number(sprite, "Gravity", 300)
@@ -48,7 +48,7 @@ controller.up.on_event(ControllerButtonEvent.PRESSED, on_up_pressed)
 
 def on_on_overlap(sprite, otherSprite):
     tiles.place_on_random_tile(otherSprite, assets.tile("""
-        myTile
+    myTile
     """))
 sprites.on_overlap(SpriteKind.enemy, SpriteKind.enemy, on_on_overlap)
 
@@ -101,7 +101,7 @@ def on_menu_option_selected(option, index):
             blockMenu.set_controls_enabled(False)
             blockMenu.close_menu()
             tiles.set_small_tilemap(tilemap("""
-                level1
+            level1
             """))
             mySprite = sprites.create(img("""
                     6 6 6 6 5 5 5 5 
@@ -116,7 +116,7 @@ def on_menu_option_selected(option, index):
                 SpriteKind.Actor)
             sprites.set_data_string(mySprite, "Type", "Player")
             tiles.place_on_random_tile(mySprite, assets.tile("""
-                myTile0
+            myTile0
             """))
             controller.move_sprite(mySprite, 65, 0)
             for index2 in range(4):
@@ -203,6 +203,7 @@ def on_on_update2():
             for value2 in sprites.all_of_kind(SpriteKind.Actor):
                 if sprites.read_data_string(value2, "Type") != "Player":
                     value2.set_velocity(sprites.read_data_number(value2, "VX"),
-                        sprites.read_data_number(value2, "VY"))
+                    sprites.read_data_number(value2, "VY"))
                     value2.ay = sprites.read_data_number(value2, "Gravity")
 game.on_update(on_on_update2)
+

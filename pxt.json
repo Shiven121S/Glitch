@@ -1,5 +1,5 @@
 {
-    "name": "Glitch MAGT",
+    "name": "Glitch_MAGT.Game",
     "description": "",
     "dependencies": {
         "device": "*",
@@ -9,7 +9,11 @@
         "arcade-text": "github:microsoft/arcade-text#v1.3.0",
         "Timers": "github:microsoft/arcade-timers#v1.1.0",
         "arcade-sprite-data": "github:microsoft/arcade-sprite-data#v0.1.0",
-        "arcade-shader": "github:riknoll/arcade-shader#d2a2572906fdb68ff429f337e30606b069e688ea"
+        "arcade-shader": "github:riknoll/arcade-shader#d2a2572906fdb68ff429f337e30606b069e688ea",
+        "pxt-arcade-image-transform": "github:robo-technical-group/pxt-arcade-image-transform#v1.0.8",
+        "arcade-story": "github:microsoft/arcade-storytelling#v1.0.1",
+        "pxt-countup": "github:shakao/pxt-countup#v0.0.2",
+        "settings-blocks": "github:microsoft/pxt-settings-blocks#v1.0.0"
     },
     "files": [
         "main.blocks",
