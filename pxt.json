@@ -13,7 +13,9 @@
         "pxt-arcade-image-transform": "github:robo-technical-group/pxt-arcade-image-transform#v1.0.8",
         "arcade-story": "github:microsoft/arcade-storytelling#v1.0.1",
         "pxt-countup": "github:shakao/pxt-countup#v0.0.2",
-        "settings-blocks": "github:microsoft/pxt-settings-blocks#v1.0.0"
+        "settings-blocks": "github:microsoft/pxt-settings-blocks#v1.0.0",
+        "darts": "*",
+        "tilemaps": "github:microsoft/pxt-tilemaps#v1.11.0"
     },
     "files": [
         "main.blocks",
